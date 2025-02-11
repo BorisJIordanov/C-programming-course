@@ -1,0 +1,120 @@
+
+/* Task 1: Sum of Prime Numbers in an Array */
+#include <stdio.h>
+#include <stdbool.h>
+#include <math.h>
+
+bool is_prime(int n) {
+    if (n < 2) return false;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) return false;
+    }
+    return true;
+}
+
+int sum_of_primes(int arr[], int size) {
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        if (is_prime(arr[i])) {
+            sum += arr[i];
+        }
+    }
+    return sum;
+}
+
+/* Task 2: Product of Digits of a Number */
+int product_of_digits(int n) {
+    int product = 1;
+    if (n == 0) return 0;
+    while (n != 0) {
+        product *= n % 10;
+        n /= 10;
+    }
+    return product;
+}
+
+/* Task 3: Sort Array and Calculate Sum of Elements Multiplied by Their Indices */
+#include <stdlib.h>
+
+int compare(const void *a, const void *b) {
+    return (*(int *)a - *(int *)b);
+}
+
+int sum_with_indices(int arr[], int size) {
+    qsort(arr, size, sizeof(int), compare);
+    int sum = 0;
+    for (int i = 0; i < size; i++) {
+        sum += arr[i] * i;
+    }
+    return sum;
+}
+
+/* Task 4: Binary Search */
+int binary_search(int arr[], int size, int target) {
+    int left = 0, right = size - 1;
+    while (left <= right) {
+        int mid = left + (right - left) / 2;
+        if (arr[mid] == target) return mid;
+        if (arr[mid] < target) left = mid + 1;
+        else right = mid - 1;
+    }
+    return -1;
+}
+
+/* Task 5: Find Character with Maximum ASCII Code */
+char max_ascii_char(const char *str) {
+    char max_char = str[0];
+    for (int i = 1; str[i] != '\0'; i++) {
+        if (str[i] > max_char) {
+            max_char = str[i];
+        }
+    }
+    return max_char;
+}
+
+/* Task 6: Recursive Decimal to Binary Conversion */
+long decimal_to_binary(int n) {
+    if (n == 0) return 0;
+    return n % 2 + 10 * decimal_to_binary(n / 2);
+}
+
+/* Task 7: Structure for Student Data */
+typedef struct {
+    char name[21];
+    int class_number;
+    float average_grade;
+} student;
+
+/* Main Function to Demonstrate All Tasks */
+int main() {
+    // Task 1
+    int arr1[] = {1, 7, 10, 15, 16, 13, 23, 30};
+    int size1 = sizeof(arr1) / sizeof(arr1[0]);
+    printf("Sum of primes: %d\n", sum_of_primes(arr1, size1));
+
+    // Task 2
+    printf("Product of digits: %d\n", product_of_digits(417));
+
+    // Task 3
+    int arr2[] = {1, 7, 3, 4, 9, 2};
+    int size2 = sizeof(arr2) / sizeof(arr2[0]);
+    printf("Sum with indices: %d\n", sum_with_indices(arr2, size2));
+
+    // Task 4
+    int arr3[] = {1, 2, 5, 7, 8, 10};
+    int size3 = sizeof(arr3) / sizeof(arr3[0]);
+    printf("Index of 5: %d\n", binary_search(arr3, size3, 5));
+    printf("Index of 6: %d\n", binary_search(arr3, size3, 6));
+
+    // Task 5
+    printf("Max ASCII character: %c\n", max_ascii_char("Ivan"));
+
+    // Task 6
+    printf("Binary of 10: %ld\n", decimal_to_binary(10));
+
+    // Task 7
+    student s = {"John Doe", 15, 5.50};
+    printf("Student: %s, Number: %d, Average Grade: %.2f\n", s.name, s.class_number, s.average_grade);
+
+    return 0;
+}
